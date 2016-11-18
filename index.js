@@ -123,7 +123,7 @@ function cookieEncrypter(secret, _options) {
         ? 'j:' + JSON.stringify(value)
         : String(value);
 
-      if (opt.noEncrypt) {
+      if (opt && opt.noEncrypt) {
         return originalResCookie.call(res, name, val, opt);
       }
 
