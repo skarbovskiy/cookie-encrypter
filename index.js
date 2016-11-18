@@ -123,11 +123,14 @@ function cookieEncrypter(secret, _options) {
         ? 'j:' + JSON.stringify(value)
         : String(value);
 
-      if (typeof opt.encrypt === 'undefined' || opt.encrypt == true) {
-        try {
-          val = 'e:' + encryptCookie(val, options);
-        } catch (error) {}
+      if (opt.noEncrypt) {
+        return originalResCookie.call(res, name, val, opt);
       }
+
+      try {
+        val = 'e:' + encryptCookie(val, options);
+      } catch (error) {}
+
       return originalResCookie.call(res, name, val, opt);
     };
 

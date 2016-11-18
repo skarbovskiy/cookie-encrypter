@@ -63,7 +63,7 @@ app.get('/setcookies', function(req, res) {
   // OR ALTERNATIVELY
   // res.cookie('supercookie', { myData: 'is encrypted' }, cookieParams);
 
-  res.cookie('not-safe-cookie', 'my data is not encrypted', {encrypt: false});
+  res.cookie('not-safe-cookie', 'my data is not encrypted', {noEncrypt: true});
   //for plain cookie
 
   res.end('new cookie set (supercookie)');
