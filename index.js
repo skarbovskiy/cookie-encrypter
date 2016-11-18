@@ -8,7 +8,7 @@ module.exports.decryptCookie = decryptCookie;
 
 /**
  * Encrypt cookie string
- * 
+ *
  * @param  {String} str     Cookie string
  * @param  {Object} options
  * @param  {Object} options.algorithm Algorithm to use to encrypt data
@@ -21,7 +21,7 @@ function encryptCookie(str, options) {
     throw new TypeError('options.key argument is required to encryptCookie');
   }
 
-  var cipher = crypto.createCipher(options.algorithm || defaultAlgorithm, options.key);  
+  var cipher = crypto.createCipher(options.algorithm || defaultAlgorithm, options.key);
   var encrypted = cipher.update(str, 'utf8', 'hex') + cipher.final('hex');
 
   return encrypted;
@@ -123,10 +123,11 @@ function cookieEncrypter(secret, _options) {
         ? 'j:' + JSON.stringify(value)
         : String(value);
 
-      try {
-        val = 'e:' + encryptCookie(val, options);
-      } catch (error) {}
-
+      if (typeof opt.encrypt === 'undefined' || opt.encrypt == true) {
+        try {
+          val = 'e:' + encryptCookie(val, options);
+        } catch (error) {}
+      }
       return originalResCookie.call(res, name, val, opt);
     };
 
